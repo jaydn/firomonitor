@@ -1,0 +1,54 @@
+version: "3.6"
+
+services:
+  db:
+    image: mariadb
+    volumes:
+      - mariadb-varlibmysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: example_database
+      MYSQL_ROOT_PASSWORD: example_password 
+
+  firod:
+    restart: unless-stopped
+    image: firoorg/firod 
+    entrypoint: /bin/firod -printtoconsole -conf=/cfg/firo.conf
+    volumes:
+      - firod-chain:/home/firod/
+      - ./cfg/firod:/cfg
+
+  firomon-web:
+    build:
+      context: .
+      dockerfile: ./firomon-web/Dockerfile
+    volumes:
+      - ./cfg/firomonitor:/config
+    depends_on:
+      - firod
+      - db
+
+  firomon-scraper:
+    tty: true
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./firomon-scraper/Dockerfile
+    volumes:
+      - ./cfg/firomonitor:/config
+    depends_on:
+      - firod
+      - db
+
+  nginx:
+    image: nginx 
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./cfg/nginx:/etc/nginx/conf.d
+    depends_on:
+      - firomon-web
+
+volumes:
+  mariadb-varlibmysql:
+  firod-chain:

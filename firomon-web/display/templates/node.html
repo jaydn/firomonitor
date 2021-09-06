@@ -1,0 +1,89 @@
+{% macro colour_status(perc) %}
+{% if perc=='ENABLED' %}
+<span class="text-success">{{perc}}</span>
+{% else %}
+<span class="text-danger">{{perc}}</span>
+{% endif %}
+{% endmacro %}
+
+
+{% extends "base.html" %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Node</strong>
+                </div>
+                <div class="card-body" style="overflow: auto;">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Label</th>
+                                <td>{{node.label}}</td>
+                            </tr>
+                            <tr>
+                                <th>TXID</th>
+                                <td>{{node.txid}}</td>
+                            </tr>
+                            <tr>
+                                <th>Collateral Address</th>
+                                <td>{{node.node_collat_addr}}</td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td>{{colour_status(node.node_status)}}</td>
+                            </tr>
+                            <tr>
+                                <th>PoSe Score</th>
+                                {% if node.node_pose_score != None %}
+                                    <td><span class="{{node.node_pose_score | colour_pose_score }}">{{node.node_pose_score}}</span></td>
+                                {% else %}
+                                    <td>None</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <th>IP</th>
+                                <td>{{node.node_ip}}</td>
+                            </tr>
+                            <tr>
+                                <th>Last Paid Time</th>
+                                <td>{{node.node_last_paid_time | tz_localize}}</td>
+                            </tr>
+                            <tr>
+                                <th>Last Paid Block</th>
+                                <td>{{node.node_last_paid_block}}</td>
+                            </tr>
+                            <tr>
+                                <th>Payout Address</th>
+                                <td>{{node.node_payout_addr}}</td>
+                            </tr>
+                            <tr>
+                                <th>Owner Address</th>
+                                <td>{{node.node_owner_addr}}</td>
+                            </tr>
+                            <tr>
+                                <th>Voting Address</th>
+                                <td>{{node.node_voting_addr}}</td>
+                            </tr>
+                            <tr>
+                                <th>Protx Hash</th>
+                                <td>{{node.node_protx_hash}}</td>
+                            </tr>
+                            <tr>
+                                <th>Operator Pubkey</th>
+                                <td>{{node.node_oper_pubkey}}</td>
+                            </tr>
+                            <tr>
+                                <th>Operator Reward</th>
+                                <td>{{node.node_oper_reward}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{
+    "config_name": "installation identifier",
+    "domain": "yourdomain.com",
+    "secret": "used for flask secret",
+    "database_name": "mysql db",
+    "database_kvargs": {
+        "user": "mysql user",
+        "password": "mysql password",
+        "host": "mysql server",
+        "port": 3306
+    },
+    "node_args": {
+        "host": "firod rpc host",
+        "port": 8888,
+        "user": "rpcuser",
+        "password": "rpcpassword"
+    },
+    "show_dev_credit": true,
+    "enforce_limit": true,
+    "limit": 25,
+    "enforce_invite": false,
+    "invite": "your invite key if this is a private instance",
+    "should_send_mail": true,
+    "mailgun_domain": "your email domain",
+    "mailgun_key": "your mailgun api key"
+}
