@@ -12,7 +12,7 @@ itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==2.0.1
 marshmallow==2.15.3
-peewee==3.4.0
+peewee==3.14.10
 PyJWT==1.4.2
 PyMySQL==0.8.1
 python-dateutil==2.7.3
